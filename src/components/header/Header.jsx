@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { validateForm } from "../../utils/validation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setHeader } from "../../store/formSlice";
 import { useHeder } from "../../hooks/itemcodehook";
+import { setIsopened } from "../../store/commonSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
- const {data,isLoading,error} =useHeder() 
- const [accno,setAccno]=useState(data?.length)
+  const { vr_no } = useSelector((state) => state.common.common);
+
+  const {  isLoading } = useHeder();
   const [isOpen, setIsOpen] = useState(true);
-  
+
   const [formData, setFormData] = useState({
-    vrNo: accno,
+    vrNo: vr_no || '',
     vrDate: "",
     status: "",
     acName: "",
@@ -20,13 +22,19 @@ const Header = () => {
 
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    setFormData((prevState) => ({ ...prevState, vrNo: vr_no || '' }));
+  }, [vr_no]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
-  if(isLoading){
-    return <h1>Lodaign...</h1>
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm(formData);
@@ -44,6 +52,7 @@ const Header = () => {
 
       console.log("Payload ready for submission:", payload);
       dispatch(setHeader(payload));
+      dispatch(setIsopened())
       setIsOpen(false);
     } else {
       setErrors(validationErrors);
@@ -61,7 +70,7 @@ const Header = () => {
               type="text"
               name="vrNo"
               value={formData.vrNo}
-              disabled  
+              disabled
               onChange={handleInputChange}
               className="border p-2"
             />
@@ -76,9 +85,7 @@ const Header = () => {
               onChange={handleInputChange}
               className="border p-2"
             />
-            {errors.vrDate && (
-              <span className="text-red-600">{errors.vrDate}</span>
-            )}
+            {errors.vrDate && <span className="text-red-600">{errors.vrDate}</span>}
           </div>
           <div className="flex flex-col w-1/3">
             <label className="mb-2">Status:</label>
@@ -89,9 +96,7 @@ const Header = () => {
               onChange={handleInputChange}
               className="border p-2"
             />
-            {errors.status && (
-              <span className="text-red-600">{errors.status}</span>
-            )}
+            {errors.status && <span className="text-red-600">{errors.status}</span>}
           </div>
         </div>
         <div className="flex gap-3 mb-6">
@@ -104,9 +109,7 @@ const Header = () => {
               onChange={handleInputChange}
               className="border p-2"
             />
-            {errors.acName && (
-              <span className="text-red-600">{errors.acName}</span>
-            )}
+            {errors.acName && <span className="text-red-600">{errors.acName}</span>}
           </div>
           <div className="flex flex-col w-2/6">
             <label className="mb-2">AC Amount:</label>
@@ -117,9 +120,7 @@ const Header = () => {
               onChange={handleInputChange}
               className="border p-2 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
-            {errors.acAmt && (
-              <span className="text-red-600">{errors.acAmt}</span>
-            )}
+            {errors.acAmt && <span className="text-red-600">{errors.acAmt}</span>}
           </div>
         </div>
         {isOpen && (

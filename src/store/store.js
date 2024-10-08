@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import formReducer from './formSlice'
+import common from './commonSlice'
 const store = configureStore({
     reducer: {
-      form: formReducer
+      form: formReducer,
+      common:common
     }
   });
   

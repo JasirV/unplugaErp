@@ -6,6 +6,7 @@ function Table() {
   const [isOpen,setIsOpen]=useState(false)
   const [total, setTotal] = useState(0);
   const { header } = useSelector((state) => state.form);
+  const { TotalAmount } = useSelector((state) => state.common.common);
 
   useEffect(() => {
     if (header?.detail_table?.length>0) {
@@ -15,7 +16,7 @@ function Table() {
       setTotal(totalAmount.toFixed(2));
     }
   }, [header]);
-  console.log(total);
+  console.log(TotalAmount);
   
   return (
     <>
@@ -52,7 +53,7 @@ function Table() {
 
       <div className="mt-4 font-bold flex w-full justify-end">
         <span>Total Amount: </span>
-        <span>₹{total}</span>
+        <span>₹{TotalAmount}</span>
       </div>
     </div>
 )}
