@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Home, Users, Package, DollarSign, ShoppingCart, CreditCard, BarChart2, Share2, Settings } from 'lucide-react';
+import { ChevronDown, ChevronUp, Home, History , Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const MenuItem = ({ icon: Icon, label, items, onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   
   return (
     <div className="mb-2">
@@ -34,16 +35,16 @@ const MenuItem = ({ icon: Icon, label, items, onClick }) => {
 };
 
 const Sidebar = () => {
-
+  const navigate =useNavigate()
   const handleMenuItemClick = (label) => {
     console.log(label, "label");
     switch (label) {
       case 'Home':
-        navigate('/home');
+        navigate('/');
         break;
-        case 'Sale Invoices':
-        navigate('/sale');
-      
+        case 'History':
+        navigate('/history');
+        break;
       default:
         break;
     }
@@ -56,6 +57,7 @@ const Sidebar = () => {
       </div>
       <div className="space-y-2">
         <MenuItem icon={Home} label="Home" onClick={handleMenuItemClick} />
+        <MenuItem icon={History} label="History" onClick={handleMenuItemClick} />
       </div>
     </div>
   );

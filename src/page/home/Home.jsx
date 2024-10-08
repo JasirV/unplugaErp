@@ -3,6 +3,7 @@ import React from 'react'
 import Sidebar from '../../components/saidbar/Saidbar'
 import Header from '../../components/header/Header'
 import Details from '../../components/details/Details'
+import Table from '../../components/table/Table'
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
         </div>
         <div className=' w-full '>
             <Header/>
+            <Table/>
             <Details/>
 
         </div>

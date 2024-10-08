@@ -1,5 +1,5 @@
 // src/utils/validation.js
-export const validateForm = (formData, details) => {
+export const validateForm = (formData) => {
     let tempErrors = {};
   
     if (!formData.vrNo || !/^\d{1,18}$/.test(formData.vrNo)) {
@@ -26,29 +26,30 @@ export const validateForm = (formData, details) => {
     if (!formData.acAmt || !/^\d{1,16}(\.\d{1,2})?$/.test(formData.acAmt)) {
       tempErrors.acAmt = 'AC Amount is required and must be a number with up to 16 digits and 2 decimal places.';
     }
-    
-    // details.forEach((detail, index) => {
-    //   if (!detail.itemCode || detail.itemCode.length > 20) {
-    //     tempErrors[`itemCode_${index}`] = `Item code at row ${index + 1} is required and must not exceed 20 characters.`;
-    //   }
-  
-    //   if (!detail.itemName || detail.itemName.length > 200) {
-    //     tempErrors[`itemName_${index}`] = `Item name at row ${index + 1} is required and must not exceed 200 characters.`;
-    //   }
-  
-    //   if (!detail.description || detail.description.length > 3000) {
-    //     tempErrors[`description_${index}`] = `Description at row ${index + 1} is required and must not exceed 3000 characters.`;
-    //   }
-  
-    //   if (!detail.qty || !/^\d{1,15}(\.\d{1,3})?$/.test(detail.qty)) {
-    //     tempErrors[`qty_${index}`] = `Quantity at row ${index + 1} is required and must be a number with up to 15 digits and 3 decimal places.`;
-    //   }
-  
-    //   if (!detail.rate || !/^\d{1,16}(\.\d{1,2})?$/.test(detail.rate)) {
-    //     tempErrors[`rate_${index}`] = `Rate at row ${index + 1} is required and must be a number with up to 16 digits and 2 decimal places.`;
-    //   }
-    // });    
-  
     return tempErrors;
   };
+
+  export const validateDetails =(formData)=>{
+    let tempErrors = {};
+      if (!formData.itemCode || formData.itemCode.length > 20) {
+        tempErrors[`itemCode_${index}`] = `Item code at row ${index + 1} is required and must not exceed 20 characters.`;
+      }
+  
+      if (!formData.itemName || formData.itemName.length > 200) {
+        tempErrors[`itemName_${index}`] = `Item name at row ${index + 1} is required and must not exceed 200 characters.`;
+      }
+  
+      if (!formData.description || formData.description.length > 3000) {
+        tempErrors[`description_${index}`] = `Description at row ${index + 1} is required and must not exceed 3000 characters.`;
+      }
+  
+      if (!formData.qty || !/^\d{1,15}(\.\d{1,3})?$/.test(formData.qty)) {
+        tempErrors[`qty_${index}`] = `Quantity at row ${index + 1} is required and must be a number with up to 15 digits and 3 decimal places.`;
+      }
+  
+      if (!formData.rate || !/^\d{1,16}(\.\d{1,2})?$/.test(formData.rate)) {
+        tempErrors[`rate_${index}`] = `Rate at row ${index + 1} is required and must be a number with up to 16 digits and 2 decimal places.`;
+      }
+    return tempErrors
+  }
   

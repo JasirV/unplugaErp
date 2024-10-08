@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   header: {
-    detail_table: [],
   }
 };
 
@@ -14,15 +13,16 @@ const formSlice = createSlice({
       state.header = {...action.payload};
     },
     addDetailItem: (state, action) => {
-      state.detail_table.push(action.payload);
+      console.log(state)
+      state.header.detail_table.push(...action.payload);
     },
     updateDetailItem: (state, action) => {
       const { index, updatedItem } = action.payload; 
-      state.detail_table[index] = { ...state.detail_table[index], ...updatedItem };
+      state.header.detail_table[index] = { ...state.detail_table[index], ...updatedItem };
     },
     deleteDetailItem: (state, action) => {
       const index = action.payload; 
-      state.detail_table.splice(index, 1); 
+      state.header.detail_table.splice(index, 1); 
     },
     resetForm: (state) => {
       state.header = initialState.header;
