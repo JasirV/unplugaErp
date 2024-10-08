@@ -85,7 +85,7 @@ const Details = () => {
   }
 
   return (
-    <div>
+    <div className='mt-12'>
       {open && (
         <div className="bg-gray-100 rounded-xl p-6">
           <div>
