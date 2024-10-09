@@ -15,7 +15,7 @@ const Details = () => {
   const [itemsList, setItemsList] = useState([]);
   const [details, setDetails] = useState([
     {
-      vr_no: header.header_table?.vr_no || "",
+      vr_no: header.header_table?.vr_no*12 || "",
       sr_no: header.detail_table?.length || 1,
       itemCode: "",
       itemName: "",
