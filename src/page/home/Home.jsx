@@ -8,11 +8,11 @@ import Buttons from '../../components/buttons/Buttons'
 
 const Home = () => {
   return (
-    <div className='flex'>
+    <div className='flex h-screen overflow-hidden'>
         <div>
             <Sidebar />
         </div>
-        <div className=' w-full '>
+        <div className=' w-full overflow-auto'>
             <Header/>
             <Buttons/>
             <Details />

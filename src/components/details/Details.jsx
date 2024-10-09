@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addDetailItem } from '../../store/formSlice';
-import { useItems } from '../../hooks/itemcodehook';
-import { setIsopened, setTotalAmount } from '../../store/commonSlice';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addDetailItem } from "../../store/formSlice";
+import { useItems } from "../../hooks/itemcodehook";
+import { setIsopened, setTotalAmount } from "../../store/commonSlice";
 
 const Details = () => {
   const { header } = useSelector((state) => state.form);
@@ -10,19 +10,18 @@ const Details = () => {
   const { data, isLoading, error } = useItems();
 
   const open = useSelector((data) => data.common.common.isOPen);
-  console.log(open,'isOPen');
-  
+  console.log(open, "isOPen");
 
   const [itemsList, setItemsList] = useState([]);
   const [details, setDetails] = useState([
     {
-      vr_no: header.header_table?.vr_no || '',
+      vr_no: header.header_table?.vr_no || "",
       sr_no: header.detail_table?.length || 1,
-      itemCode: '',
-      itemName: '',
-      description: '',
-      qty: '',
-      rate: '',
+      itemCode: "",
+      itemName: "",
+      description: "",
+      qty: "",
+      rate: "",
       detail_table: [],
     },
   ]);
@@ -51,19 +50,32 @@ const Details = () => {
       dispatch(addDetailItem(details));
       dispatch(setTotalAmount(validQty * validRate));
       dispatch(setIsopened());
+      setDetails([
+        {
+          vr_no: header.header_table?.vr_no || "",
+          sr_no: details.length + 1,
+          itemCode: "",
+          itemName: "",
+          description: "",
+          qty: "",
+          rate: "",
+        },
+      ]);
     } else {
-      alert('Please enter valid numbers for Quantity and Rate.');
+      alert("Please enter valid numbers for Quantity and Rate.");
     }
   };
 
   const handleItemSelect = (index, e) => {
-    const selectedItem = itemsList.find((item) => item.item_code === e.target.value);
+    const selectedItem = itemsList.find(
+      (item) => item.item_code === e.target.value
+    );
 
     const updatedDetails = [...details];
     updatedDetails[index] = {
       ...updatedDetails[index],
-      itemCode: selectedItem?.item_code || '',
-      itemName: selectedItem?.item_name || '',
+      itemCode: selectedItem?.item_code || "",
+      itemName: selectedItem?.item_name || "",
     };
     setDetails(updatedDetails);
   };
@@ -75,7 +87,6 @@ const Details = () => {
     }
   }, [data]);
 
-
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -85,11 +96,30 @@ const Details = () => {
   }
 
   return (
-    <div className='mt-12'>
+    <div className="mt-12">
       {open && (
         <div className="bg-gray-100 rounded-xl p-6">
-          <div>
+          <div className="flex justify-between">
             <h2 className="text-xl font-bold mb-4">DETAIL</h2>
+            <button onClick={()=>dispatch(setIsopened())}
+              className="linear flex items-center justify-center rounded-full bg-gray-200 p-2 text-gray-600 hover:bg-gray-300 active:bg-gray-400 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:active:bg-gray-500"
+              aria-label="Close"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
           </div>
 
           {details.map((detail, index) => (
@@ -157,7 +187,10 @@ const Details = () => {
             </div>
           ))}
 
-          <button onClick={handleSubmit} className="mt-4 bg-blue-500 text-white p-2 rounded">
+          <button
+            onClick={handleSubmit}
+            className="mt-4 bg-blue-500 text-white p-2 rounded"
+          >
             Submit Details
           </button>
         </div>
