@@ -8,7 +8,7 @@ export const useDataUploadMuttate = () => {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const response=await axios.post('http://5.189.180.8:8010/header/multiple', header);
+      const response=await axios.post('http://5.189.180.8:8010/multiple', header);
       console.log(response,'response form out ');
       
     },
@@ -19,5 +19,5 @@ export const useDataUploadMuttate = () => {
     },
   });
 
-  return mutation;
+  return mutation;             
 };
