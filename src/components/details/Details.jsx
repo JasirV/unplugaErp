@@ -15,14 +15,13 @@ const Details = () => {
   const [itemsList, setItemsList] = useState([]);
   const [details, setDetails] = useState([
     {
-      vr_no: header.header_table?.vr_no*12 || "",
+      vr_no: header.header_table?.vr_no*12 || 22,
       sr_no: header.detail_table?.length || 1,
       itemCode: "",
       itemName: "",
       description: "",
       qty: "",
       rate: "",
-      detail_table: [],
     },
   ]);
 
